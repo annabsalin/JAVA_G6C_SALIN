@@ -36,13 +36,13 @@ public class Tp2 {
         }
 
         //méthode par complémentaire (plus efficace que la brute force)
-        public boolean isBinarySumInArray(int[]integers, int val){
+        public boolean BinarySumInArray(int[] integers, int val){
             Set<Integer> set=new HashSet<>();
             for (int i=0; i<integers.length; i++){
                 if(set.contains(val-integers[i])){
                     return true;
                 }
-                set.add(integers[]);
+                set.add(integers[i]);
             }
             return false;
         }
