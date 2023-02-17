@@ -22,7 +22,7 @@ public class Tp2 {
         static boolean isBinarySumInArray(int []integers, int val){
             int n = integers.length;
             int count = 0;
-
+//méthode barbare/Brute force (faire marcher le pb) : complécité 0(n^2)
             for(int i=0; i<n; i++){
                 int subarraySum = 0;
                 for(int j=i; j<n; j++){
@@ -35,15 +35,24 @@ public class Tp2 {
             return count >= 1;
         }
 
+        //méthode par complémentaire (plus efficace que la brute force)
+        public boolean isBinarySumInArray(int[]integers, int val){
+            Set<Integer> set=new HashSet<>();
+            for (int i=0; i<integers.length; i++){
+                if(set.contains(val-integers[i])){
+                    return true;
+                }
+                set.add(integers[]);
+            }
+            return false;
+        }
+
         public static void main(String[] args){
             int [] integers = {3, 5, 7, 15};
             int val = 8;
 
             boolean result = isBinarySumInArray(integers, val);
             System.out.printf("%d est la somme de deux entiers dans le tableau : %b%n", val, result);
-
-
-
 
         }
     }
