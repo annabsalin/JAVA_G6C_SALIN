@@ -2,12 +2,13 @@ package com.isep.seance2;
 
 
 import java.util.Scanner;
+import java.lang.Thread;
 
 import static com.isep.seance1.Somme.somme;
 
 public class Main {
     public static void main(String[] args) {
-        carres();
+        division();
     }
     public static void discriminant() {
         Scanner scanner = new Scanner(System.in);
@@ -100,15 +101,19 @@ public class Main {
     }
 
     public static void countdown(){
-        //Est-ce qu'il faut avoir un countdown avec du temps ?
-        int i = 11;
-        while (i>0) {
-            i -= 1;
-            System.out.println(i);
+        for (int i=10; i>=0; i--){
+            if (i!=0) {
+                System.out.println(i);
+            } else {
+                System.out.println("BOUM !");
+            }
+            try {
+                Thread.sleep(1000);
+            }catch(InterruptedException e){
+                System.out.println("Erreur"+e);
+            }
         }
-        if (i == 0){
-            System.out.println("BOUM");
-        }
+
     }
 
     public static void carres(){
@@ -118,6 +123,35 @@ public class Main {
         int carre = x*x;
         System.out.println(x + "    " + carre);
     }
+
+    public static void tableMultiplication(){
+        for (int j=1; j<=10; j++){
+            for (int i=1; i<=10; i++) {
+                int a=i*j;
+                if (a < 10) {
+                    System.out.print(a + "    ");
+                } else{
+                    System.out.print(a + "   ");
+                }
+            }
+            System.out.println("    ");
+        }
+    }
+
+    public static void division(){
+        Scanner scanner = new Scanner( System.in );
+        System.out.println("Veuillez saisir le premier entier");
+        int premierEntier = scanner.nextInt();
+        int deuxiemeEntier;
+        do {
+            System.out.println("Veuillez saisir le deuxieme entier");
+            deuxiemeEntier = scanner.nextInt();
+        } while (deuxiemeEntier==0);
+        int division = premierEntier / deuxiemeEntier;
+        System.out.println("La division de " + premierEntier + " par rapport à " + deuxiemeEntier +
+                " est egale a " + division);
+    }
+
 }
 
 

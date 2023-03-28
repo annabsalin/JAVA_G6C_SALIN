@@ -1,11 +1,9 @@
 package com.isep.seance2;
 
-import com.isep.seance1.Person;
-
 import java.util.*;
 
 
-public class Tp2 {
+public class ExercicePreliminaire {
 //    public static void main(String args[])
 //    {
 //        int [] integers = {5,8,6,0,7};
