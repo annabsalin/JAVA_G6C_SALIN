@@ -1,4 +1,8 @@
 package rpg.console;
+
+import rpg.Enemy;
+import rpg.Wizard;
+
 public class Display {
     public void printText(String text) {
         System.out.println(text);
@@ -26,5 +30,10 @@ public class Display {
         printText(wrapper);
         printText(text);
         printText(wrapper);
+    }
+
+    public void displayLifePoints(Wizard wizard, Enemy enemy) {
+        printText("Points de vie du sorcier: " + wizard.getLifePoints());
+        printText("Points de vie de l'Ennemi: " + enemy.getLifePoints());
     }
 }

@@ -10,7 +10,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import static java.lang.System.out;
-import static rpg.console.Main.inputParser;
 
 @Getter
 @Setter
@@ -35,7 +34,7 @@ public class Wizard extends Character{
     int level = 1;
 
     // Constructor of Wizard
-    public Wizard(String name, String sortingHat, String wand) {
+    public Wizard(String name, String sortingHat, String wand, String pet) {
         super(name, 30, 120, 120);
     }
 
@@ -87,28 +86,31 @@ public class Wizard extends Character{
 
     }
     //Trouver son animal
-    public static void pet() {
-        out.println("Il est à présent temps de choisir l'animal qui te suivra pendant tes prochaines années !");
+    public String pet() {
+        this.display = new Display();
+        this.inputParser = new InputParser(System.in);
+        this.display.printText("Il est à présent temps de choisir l'animal qui te suivra pendant tes prochaines années !");
         String pet = petChoice();
-        out.println("Ton animal pour tes 7 prochaines années sera un "+pet);
+        this.display.printText("Ton animal pour tes 7 prochaines années sera un "+pet);
+        return pet;
     }
-    public static String petChoice(){
-        Scanner scanner = new Scanner(System.in);
+    public String petChoice(){
+        this.display = new Display();
+        this.inputParser = new InputParser(System.in);
         System.out.println("Quel animal souhaites tu avoir ? \n1. Rat\n2. Chat\n3. Hibou\n4. Crapaud");
-        String pet;
-        switch (scanner.next()) {
-            case RAT:
-                return pet = "rat";
-            case CAT:
-                return pet = "chat";
-            case OWL:
-                return pet = "hibou";
-            case TOAD:
-                return pet = "crapaud";
+        String pet = inputParser.readInput();
+        switch (pet) {
+            case "1":
+                return "rat";
+            case "2":
+                return "chat";
+            case "3":
+                return "hibou";
+            case "4":
+                return "crapaud";
             default:
                 out.println("Il faut que tu choisisses entre 1, 2, 3 et 4");
-                pet();
-                return null;
+                return petChoice();
         }
     }
 
