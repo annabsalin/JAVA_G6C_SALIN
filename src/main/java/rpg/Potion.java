@@ -6,6 +6,7 @@ import rpg.console.Display;
 import rpg.console.Main;
 
 import java.util.ArrayList;
+
 @Getter
 @Setter
 
@@ -21,10 +22,10 @@ public class Potion {
     public static void potion() {
         ArrayList<Potion> potions = new ArrayList<>();
         potions.add(new Potion(60, 2));
-        }
+    }
 
 
-    public void drinkPotion(Wizard wizard) {
+    public String drinkPotion(Wizard wizard) {
         if (quantity > 0) {
             int addPV = power;
             if (wizard.getHouse() == House.HUFFLEPUFF) {
@@ -32,9 +33,9 @@ public class Potion {
             }
             wizard.setLifePoints(wizard.getLifePoints() + addPV);
             quantity--;
-            Main.getInstance().getDisplay().printText("Le sorcier a maintenant " + wizard.getLifePoints() + " points de vie.");
+            return "Le sorcier a maintenant " + wizard.getLifePoints() + " points de vie.";
         } else {
-            Main.getInstance().getDisplay().printText("Le sorcier n'a plus de potion.");
+            return "Le sorcier n'a plus de potion.";
         }
     }
 

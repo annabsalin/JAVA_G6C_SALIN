@@ -30,10 +30,12 @@ public class Display {
         printText(wrapper);
         printText(text);
         printText(wrapper);
+
     }
 
     public void displayLifePoints(Wizard wizard, Enemy enemy) {
         printText("Points de vie du sorcier: " + wizard.getLifePoints());
+        if (enemy != null) {
         printText("Points de vie de l'Ennemi: " + enemy.getLifePoints());
-    }
+        }}
 }

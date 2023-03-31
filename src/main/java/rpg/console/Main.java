@@ -1,51 +1,36 @@
 package rpg.console;
 
-import rpg.Enemy;
-import rpg.Level1;
-import rpg.SortingHat;
+import rpg.*;
+import rpg.Character;
 import rpg.Wizard;
 import rpg.console.InputParser;
 import rpg.console.Display;
+import rpg.console.GameParameters;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static java.lang.System.out;
+import static rpg.Enemy.troll;
 
 
 public class Main {
-
-    private static Main game;
-    public static Display display;
-    public static InputParser inputParser;
-    private Wizard wizard;
-    private int currentLevel = 1; // niveau actuel
-
-
-    public static Main getInstance(){
-        return game;
-    }
-
-    public Display getDisplay() {
-        return display;
-    }
-
-    public InputParser getInputParser() {
-        return inputParser;
-    }
+    public GameParameters game;
+    public Display display;
+    public InputParser inputParser;
+    Wizard wizard;
 
     public Main(){
         this.display = new Display();
         this.inputParser = new InputParser(System.in);
-        createWizard();
-    }
-
-    private void createWizard(){
-        this.wizard = new Wizard("", "", "", "");
-        //String name = this.wizard.name();
-        //String wand = wand();
-        //String sortingHat = SortingHat.chooseHouse();
-        //String pet = this.wizard.pet();
-        this.wizard = new Wizard("Annabelle", "Ravenclaw", "licorne", "rat");
-        Level1 level1 = new Level1(this.wizard);
-        startLevel(1);
+        this.game = new GameParameters();
+        this.wizard = new Wizard("");
+        //Level1 level1 = new Level1();
+        //level1.level1(game, wizard);
+        Level2 level2 = new Level2();
+        level2.level2(game, wizard);
+        Level3 level3 = new Level3();
+        level3.level3(game,wizard);
     }
 
    /*private void createWizard(){
@@ -56,54 +41,8 @@ public class Main {
        startLevel(1);
     }*/
 
-    //choose the wand of the wizard
-    public String wand() {
-        this.display.printText("Viens, je vais t'emmener à la boutique d'Ollivander pour t'assigner ta baguette ! C'est elle qui est sensé te choisir selon ta personnalité. Il va falloir que tu me donnes quelques informations...");
-        String core = core();
-        int size= size();
-        String wand = core + size;
-        this.display.printText("Votre baguette a un coeur constitué de "+core+" et mesure "+size+"cm.");
-        this.display.printText("Maintenant que tu as trouvé ta baguette, allons vite à Poudlard ! Nous allons arriver juste à temps pour la cérémonie de répartition !");
-    return wand;
-   }
-
-    public String core() {
-        this.display.printText("Qu'est ce que tu attends de ta baguette ? \n1. Fidèle, sans trop de fluctuations \n2. Puissante et simple d'utilisation, mais elle peut causer des accidents \n3. Pour exécuter tous types de magie");
-        String core = inputParser.readInput();
-        switch (core) {
-            case "1":
-                out.println("Ta baguette aura un coeur composé de crin de licorne.");
-                return "crin de licorne";
-            case "2":
-                out.println("Ta baguette aura un coeur de dragon.");
-                return "coeur de dragon";
-            case "3":
-                out.println("Ta baguette aura un coeur composé de la plume de Phénix.");
-                return "plume de Phénix";
-            default:
-                out.println("Il faut que tu choisisses entre 1, 2, 3");
-                return core();
-
-        }
-    }
-
-    public int size() {
-        System.out.println("De quelle taille es-tu ?\n1. Grand \n2. Petit \n3. Normal");
-        int size = InputParser.getInt();
-        switch(size) {
-            case 1:
-                return 35;
-            case 2:
-                return 22;
-            case 3:
-                return 29;
-            default:
-                return size();
-        }
-    }
-
     // Fonction pour démarrer un niveau
-    public void startLevel(int level) {
+    /*public void startLevel(int level) {
         // Afficher l'énoncé du niveau
         System.out.println(getLevelDescription(level));
 
@@ -124,56 +63,87 @@ public class Main {
         }else {
             System.out.println("Vous avez perdu tous vos points de vie...");
         }
-    }
+    }*/
+
+    /*public Enemy getLevelEnemy(int level) {
+        switch (level) {
+            case 1:
+                return new Enemy("Troll", 15, 80, 80);
+            case 2:
+                return new Enemy("Basilic", 20, 100, 120);
+            case 3:
+                return new Enemy("Détraqueurs", 25, 120, 150);
+            case 4:
+                //TODO voir comment avoir 2 ennemis dans un même niveau
+                return new Enemy("Voldemort", 75, 300, 300);
+                //return new Enemy("Peter Pettigrow", 15, 80, 80);
+            case 5:
+                return new Enemy("Dolores Ombrage", 20, 100, 120);
+            case 6:
+                return new Enemy("Mangemorts", 25, 120, 150);
+            case 7:
+                //TODO est ce que j'ai besoin de recréer un nouvel ennemi ou j'ai juste la flemme de me casser la tête ?
+                return new Enemy("Voldemort", 75, 300, 300);
+                //return new Enemy("Bellatrix Lestrange", 50, 250, 250);
+            default:
+                return null;
+        }
+    }*/
+
+    /*public Enemy getLevelEnemies(int level) {
+        switch (level) {
+            case 1:
+                return new Enemy(Arrays.asList(new Enemy("Troll", 15, 80, 80)));
+            case 2:
+                return new Enemy(Arrays.asList(new Enemy("Basilic", 20, 100, 120)));
+            case 3:
+                return new Enemy(Arrays.asList(new Enemy("Détraqueurs", 25, 120, 150)));
+            case 4:
+                return new Enemy(Arrays.asList(new Enemy("Voldemort", 75, 300, 300), new Enemy("Peter Pettigrow", 15, 80, 80)));
+            case 5:
+                return new Enemy(Arrays.asList(new Enemy("Dolores Ombrage", 20, 100, 120)));
+            case 6:
+                return new Enemy(Arrays.asList(new Enemy("Mangemorts", 25, 120, 150)));
+            case 7:
+                return new Enemy(Arrays.asList(new Enemy("Voldemort", 75, 300, 300), new Enemy("Bellatrix Lestrange", 50, 250, 250)));
+            default:
+                return null;
+        }
+    }*/
 
     // Fonction pour jouer un niveau
-    public boolean playLevel(int level) {
+    /*public boolean playLevel(int level) {
         // TODO: logique pour jouer le niveau
-        // Retourne true si le joueur a gagné, false sinon
-        return true;
-    }
+        Enemy levelEnemies = getLevelEnemies(level);
+        List<Enemy> enemies = levelEnemies.getEnemies();
+        //TODO réussir à utiliser les spell dans la liste spell
 
-    // Fonction pour récupérer la description d'un niveau
-    public String getLevelDescription(int level) {
-        String description = "";
-        switch(level) {
-            case 1:
-                description = "Première année : The Philosopher’s Stone.";
+        Spell spell = wizard.chooseSpell();
+        display.displayLifePoints(wizard, (Enemy) enemies);
+
+        boolean allEnemiesDefeated = true;
+
+        for (Enemy enemy : enemies) {
+            while (wizard.getLifePoints() > 0 && enemy.getLifePoints() > 0) {
+                enemy.takeDamage(wizard.useSpell(enemy, spell));
+                wizard.takeDamage(enemy.getDamage());
+                display.displayLifePoints(wizard, enemy);
+            }
+            if (enemy.getLifePoints() > 0) {
+                allEnemiesDefeated = false;
                 break;
-            case 2:
-                description = "Deuxième année : The Chamber of Secrets.";
-                break;
-            case 3:
-                description = "Troisième année : The Prisonner of Azkaban.";
-                break;
-            case 4:
-                description = "Quarième année : The Goblet of Fire.";
-                break;
-            case 5:
-                description = "Cinquième année : The Order of the Phenix.";
-                break;
-            case 6:
-                description = "Sixième année : The Half-Blood Prince.";
-                break;
-            case 7:
-                description = "Septième année : The Deathly Hallows.";
-                break;
-            default:
-                description = "Ce niveau n'existe pas. Nous avons un problème technique, veuillez nous excuser.";
+            }
+        }if (allEnemiesDefeated) {
+            wizard.incrementLevel();
+            return true;
+        } else {
+            return false;
         }
-        return description;
-    }
-
-    // Fonction pour récupérer le nombre maximum de niveaux
-    public int getMaxLevel() {
-        int maxLevel;
-        maxLevel=7;
-        return maxLevel;
-    }
+    }*/
 
 
     public static void main(String[] args) {
-        game = new Main();
+        Main main = new Main();
         //Wand.wand();
         //Wizard.pet();
         //Wizard character = new Wizard(name, 120,20);

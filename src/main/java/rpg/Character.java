@@ -2,6 +2,7 @@ package rpg;
 
 import lombok.Getter;
 import lombok.Setter;
+import rpg.console.Display;
 import rpg.console.InputParser;
 
 @Setter
@@ -9,6 +10,7 @@ import rpg.console.InputParser;
 public class Character {
 
     InputParser inputParser;
+    Display display;
     //attribuation des variables
 
 
@@ -19,13 +21,14 @@ public class Character {
     int nbPotion;
     int damage;
 
-    private String name;
+    public String name;
 
     //function used in levels
 
     public boolean stillAlive() {
         return (this.lifePoints > 0);
     }
+    public boolean dead(){return (this.lifePoints<=0);}
 
     public int getMaxLifePoints() {
         return maxLifePoints;
@@ -77,17 +80,6 @@ public class Character {
 
     public void takeDamage(int damage) {
         lifePoints -= damage;
-        if (this.lifePoints <= 0) {
-            System.out.println(this.name + " est mort.");
-        }
-    }
-
-
-    //Return the Life Points left
-    public String getCharacterAttributes(){
-        String ret = "";
-        ret = ret + "LifePoints = " + this.lifePoints + "\n\r";
-        return ret;
     }
 
 
